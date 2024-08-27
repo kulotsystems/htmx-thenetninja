@@ -2,6 +2,9 @@ const createEditFormTemplate = (book) => {
     return /*html*/`
         <form
             id="editbook"
+            hx-put="/books/${book.id}"
+            hx-target="closest li"
+            hx-swap="outerHTML"
         >
             <input
                 type="text"
