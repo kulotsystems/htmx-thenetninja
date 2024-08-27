@@ -1,8 +1,10 @@
 import express from 'express';
 import createHomepageTemplate from './views/index.js';
 import createListTemplate from './views/list.js';
-import createBookTemplate from "./views/book.js";
+import createBookTemplate from './views/book.js';
+import createEditFormTemplate from './views/edit.js';
 import BOOKS_DATA from './data/data.js';
+
 
 // create app
 const app = express();
@@ -41,6 +43,12 @@ app.delete('/books/:id', (req, res) => {
     if(idx >= 0)
         BOOKS_DATA.splice(idx, 1);
     res.send();
+});
+
+app.get('/books/edit/:id', (req, res) => {
+    const { id } = req.params;
+    const book = BOOKS_DATA.find((b) => b.id === id);
+    res.send(createEditFormTemplate(book));
 });
 
 // listen to port
